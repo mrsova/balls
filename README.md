@@ -41,7 +41,6 @@ $ node index.js - Запуск сервера
     "DeviceID":"4654"
 }
 ~~~
-
 ~~~
 # При успешной авторизации возвращается JSON
 {
@@ -68,35 +67,6 @@ $ node index.js - Запуск сервера
             4: 0
         }
 }
-~~~
-~~~
-# Если пользователя нет в системе возвращается JSON
-{
-    "Result": "Login Successful!",
-    "QueryType": "login",
-    "QueryObject": 
-    {
-        "PlayerName": "132",
-        "AccScore": 40,
-        "BonusData": 
-        {
-            "Turn": 30,
-            "KillOneBall": 89,
-            "OneRowSpawn": 40,
-            "KillBallsType": 50
-        },
-        "AccMoney": 40,
-        "GameProgress": 
-        {
-            0: 0,
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0
-        }
-    }
-}
-
 ~~~
 
 ~~~
