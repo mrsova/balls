@@ -105,3 +105,76 @@ $ node index.js - Запуск сервера
     }
 }
 ~~~
+
+~~~
+Маршрут на обновление информации о польозвателе
+# http://localhost:3851/updateacc  метод POST
+# Передается JSON  обязательные параметры
+{
+  "DeviceID": "1234",
+  "AccScore": 41,
+  "AccMoney": 41,
+  "GameProgress": {
+    "0": 40,
+    "1": 40,
+    "2": 40,
+    "3": 40,
+    "4": 40
+  },
+  "BonusData": {
+    "Turn": 39,
+    "KillOneBall": 39,
+    "OneRowSpawn": 39,
+    "KillBallsType": 39
+  }
+}
+~~~
+~~~
+# При успехе возвращается JSON
+{
+    "Result": "Update Acc Successful!",
+    "QueryType": "UpdateAccInfo",
+    "QueryObject": ""
+}
+~~~
+
+~~~
+Маршрут на обновление информации о бонусах польозвателя
+# http://localhost:3851/updatebonus  метод POST
+# Передается JSON  обязательные параметры
+{
+  "DeviceID": "1234", 
+  "BonusData": {
+    "Turn": 39,
+    "KillOneBall": 39,
+    "OneRowSpawn": 39,
+    "KillBallsType": 39
+  }
+}
+~~~
+~~~
+# При успехе возвращается JSON
+{
+    "Result": "Update BonusInfo Successful!",
+    "QueryType": "UpdateBonusInfo",
+    "QueryObject": ""
+}
+~~~
+
+~~~
+Маршрут на обновление информации о счете польозвателя
+# http://localhost:3851/updatemoney  метод POST
+# Передается JSON  обязательные параметры
+{
+  "DeviceID": "1234", 
+  "AccMoney": 41
+}
+~~~
+~~~
+# При успехе возвращается JSON
+{
+    "Result": "Update MoneyInfo Successful!",
+    "QueryType": "UpdateMoneyInfo",
+    "QueryObject": ""
+}
+~~~

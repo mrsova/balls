@@ -48,3 +48,24 @@ app.post('/login', jsonParser ,function(request, response){
 app.post('/register', jsonParser ,function(request, response){
     user.registerUser(request,response,client);
 });
+
+/**
+ * Обработка пост запроса updateacc
+ */
+app.post('/updateacc', jsonParser ,function(request, response){
+    user.UpdateAccInfoUser(request,response,client);
+});
+
+/**
+ * Обработка пост запроса updatebonus
+ */
+app.post('/updatebonus', jsonParser ,function(request, response){
+    user.UpdateBonusInfoUser(request,response,client);
+});
+
+/**
+ * Обработка пост запроса updatemoney
+ */
+app.post('/updatemoney', jsonParser ,function(request, response){
+    user.UpdateMoneyInfoUser(request,response,client);
+});

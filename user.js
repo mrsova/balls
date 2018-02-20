@@ -28,10 +28,8 @@ function formatDate(date) {
  * @returns {boolean}
  */
 function loginUser(request, response, client) {
-    if (request.method == 'POST')
-    {
-        if (!request.body.DeviceID || !request)
-        {
+    if (request.method == 'POST') {
+        if (!request.body.DeviceID || !request) {
             send.SendResult('[ERROR]: Empty request', 'login', '', response);
             return false;
         }
@@ -85,8 +83,7 @@ function loginUser(request, response, client) {
  */
 function registerUser(request, response, client) {
     if (request.method == 'POST') {
-        if (!request.body.PlayerName || !request.body.DeviceID || !request)
-        {
+        if (!request.body.PlayerName || !request.body.DeviceID || !request) {
             send.SendResult('[ERROR]: Empty request', 'CreateAccount', '', response);
             return false;
         }
@@ -150,8 +147,125 @@ function registerUser(request, response, client) {
 }
 
 /**
+ * Обновление информации аккаунта пользователя
+ * @param request
+ * @param response
+ * @param client *
+ */
+function UpdateAccInfoUser(request, response, client) {
+    if (request.method == 'POST') {
+        if (!request.body.DeviceID || !request) {
+            send.SendResult('[ERROR]: Empty request', 'UpdateAccInfo', '', response);
+            return false;
+        }
+        var DeviceID = request.body.DeviceID.toString();
+        var AccScore = request.body.AccScore.toString();
+        var AccMoney = request.body.AccMoney.toString();
+        var GameProgress = JSON.stringify(request.body.GameProgress);
+        var BonusData = JSON.stringify(request.body.BonusData);
+
+        client.getConnection(function (err, connection) {
+            if (!err) {
+                console.log("Database is connected ");
+            } else {
+                console.log("Error connecting database ");
+                return false;
+            }
+            connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
+                if (result.length == 0) {
+                    send.SendResult('No user in database', 'UpdateAccInfo', '', response);
+                    return false;
+                }
+                connection.query("UPDATE users SET AccScore = AccScore + '" + AccScore + "', AccMoney = AccMoney + '" + AccMoney + "', GameProgress = '" + GameProgress + "', BonusData = '" + BonusData + "'  WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
+                    connection.release();
+                    return send.SendResult('Update Acc Successful!', 'UpdateAccInfo', '', response);
+                });
+            });
+        });
+
+    }
+}
+
+/**
+ * Обновление информации о бонусах
+ * @param request
+ * @param response
+ * @param client *
+ */
+function UpdateBonusInfoUser(request, response, client) {
+    if (request.method == 'POST') {
+        if (!request.body.DeviceID || !request) {
+            send.SendResult('[ERROR]: Empty request', 'UpdateBonusInfo', '', response);
+            return false;
+        }
+        var DeviceID = request.body.DeviceID.toString();
+        var BonusData = JSON.stringify(request.body.BonusData);
+
+        client.getConnection(function (err, connection) {
+            if (!err) {
+                console.log("Database is connected ");
+            } else {
+                console.log("Error connecting database ");
+                return false;
+            }
+            connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
+                if (result.length == 0) {
+                    send.SendResult('No user in database', 'UpdateBonusInfo', '', response);
+                    return false;
+                }
+                connection.query("UPDATE users SET BonusData = '" + BonusData + "' WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
+                    connection.release();
+                    return send.SendResult('Update BonusInfo Successful!', 'UpdateBonusInfo', '', response);
+                });
+            });
+        });
+
+    }
+}
+
+/**
+ * Обновление информации о деньгах
+ * @param request
+ * @param response
+ * @param client *
+ */
+function UpdateMoneyInfoUser(request, response, client) {
+    if (request.method == 'POST') {
+        if (!request.body.DeviceID || !request.body.AccMoney || !request) {
+            send.SendResult('[ERROR]: Empty request', 'UpdateMoneyInfo', '', response);
+            return false;
+        }
+        var DeviceID = request.body.DeviceID.toString();
+        var AccMoney = request.body.AccMoney.toString();
+
+        client.getConnection(function (err, connection) {
+            if (!err) {
+                console.log("Database is connected ");
+            } else {
+                console.log("Error connecting database ");
+                return false;
+            }
+            connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
+                if (result.length == 0) {
+                    send.SendResult('No user in database', 'UpdateMoneyInfo', '', response);
+                    return false;
+                }
+                connection.query("UPDATE users SET AccMoney = AccMoney+ '" + AccMoney + "' WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
+                    connection.release();
+                    return send.SendResult('Update MoneyInfo Successful!', 'UpdateMoneyInfo', '', response);
+                });
+            });
+        });
+
+    }
+}
+
+/**
  * Экспорт функций
  * @type {loginUser}
  */
 module.exports.loginUser = loginUser;
 module.exports.registerUser = registerUser;
+module.exports.UpdateAccInfoUser = UpdateAccInfoUser;
+module.exports.UpdateBonusInfoUser = UpdateBonusInfoUser;
+module.exports.UpdateMoneyInfoUser = UpdateMoneyInfoUser;
