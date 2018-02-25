@@ -100,6 +100,7 @@ function registerUser(request, response, client) {
             return false;
         }
         client.getConnection(function (err, connection) {
+			if (err) throw err;
             connection.query('SELECT * FROM users WHERE PlayerName="' + PlayerName + '"', function (error, result, fields) {
                 if (result.length != 0) {
                     send.SendResult('[WARNING]: Player name already contains!', 'CreateAccount', '', response);

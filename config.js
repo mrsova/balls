@@ -4,7 +4,7 @@
  */
 module.exports = Object.freeze({
     HOST : 'localhost',
-    USER : 'root',
-    PASSWORD : '',
+    USER : 'balls',
+    PASSWORD : 's2jdhNdJKdgg',
     DATABASE : 'balls'
 });
