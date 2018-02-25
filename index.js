@@ -21,7 +21,7 @@ var port = process.env.PORT || 3851;
 /**
  * Создание application/json Парсера
  */
-var jsonParser = bodyParser.json();
+//var jsonParser = bodyParser.json();
 
 /**
  * Создание application/x-www-form-urlencoded парсера
@@ -38,34 +38,34 @@ server.listen(port, function(){
 /**
  * Обратка пост запроса login
  */
-app.post('/login', jsonParser ,function(request, response){
+app.post('/login', urlencodedParser, function(request, response){
     user.loginUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса register
  */
-app.post('/register', jsonParser ,function(request, response){
+app.post('/register', urlencodedParser, function(request, response){
     user.registerUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updateacc
  */
-app.post('/updateacc', jsonParser ,function(request, response){
+app.post('/updateacc', urlencodedParser, function(request, response){
     user.UpdateAccInfoUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updatebonus
  */
-app.post('/updatebonus', jsonParser ,function(request, response){
+app.post('/updatebonus', urlencodedParser, function(request, response){
     user.UpdateBonusInfoUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updatemoney
  */
-app.post('/updatemoney', jsonParser ,function(request, response){
+app.post('/updatemoney', urlencodedParser,function(request, response){
     user.UpdateMoneyInfoUser(request,response,client);
 });

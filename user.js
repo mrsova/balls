@@ -28,18 +28,19 @@ function formatDate(date) {
  * @returns {boolean}
  */
 function loginUser(request, response, client) {
-    if (request.method == 'POST') {
+    if (request.method == 'POST') {		
         if (!request.body.DeviceID || !request) {
             send.SendResult('[ERROR]: Empty request', 'login', '', response);
             return false;
         }
-
+		
         var DeviceID = request.body.DeviceID.toString();
         var date = new Date();
         var LastLoginDate = formatDate(date);
-
+		
+			
         if (DeviceID == "") {
-            send.SendResult('[ERROR]: Empty DeviceID parameter!', 'login', '', response);
+            send.SendResult('[ERROR]: Empty DeviceID parameter!', 'Login', '', response);
             return false;
         }
         else {
@@ -49,7 +50,7 @@ function loginUser(request, response, client) {
                 } else {
                     console.log("Error connecting database ");
                     return false;
-                }
+                }				
                 connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
                     if (result.length == 0) {
                         send.SendResult('Enter player name', 'CreateAccount', '', response);
@@ -135,7 +136,7 @@ function registerUser(request, response, client) {
                             "AccMoney": AccMoney,
                             "GameProgress": JSON.parse(GameProgress)
                         };
-                    connection.query("INSERT INTO users (PlayerName,DeviceID,RegDate,LastLoginDate,AccScore,BonusData,AccMoney,GameProgress)" +
+                   connection.query("INSERT INTO users (PlayerName,DeviceID,RegDate,LastLoginDate,AccScore,BonusData,AccMoney,GameProgress)" +
                         " VALUES('" + PlayerName + "','" + DeviceID + "','" + RegDate + "','" + LastLoginDate + "','" + AccScore + "','" + BonusData + "','" + AccMoney + "','" + GameProgress + "')",
                         function (errr, result, fields) {
                             connection.release();
@@ -162,8 +163,8 @@ function UpdateAccInfoUser(request, response, client) {
         var DeviceID = request.body.DeviceID.toString();
         var AccScore = request.body.AccScore.toString();
         var AccMoney = request.body.AccMoney.toString();
-        var GameProgress = JSON.stringify(request.body.GameProgress);
-        var BonusData = JSON.stringify(request.body.BonusData);
+        var GameProgress = request.body.GameProgress;
+        var BonusData = request.body.BonusData;
 
         client.getConnection(function (err, connection) {
             if (!err) {
