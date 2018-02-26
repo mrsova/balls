@@ -165,7 +165,33 @@ function UpdateAccInfoUser(request, response, client) {
         var AccMoney = request.body.AccMoney.toString();
         var GameProgress = request.body.GameProgress;
         var BonusData = request.body.BonusData;
-
+				
+		if((AccScore == 0) && (AccMoney == 0) && (Object.keys(GameProgress).length == 2) && (Object.keys(BonusData).length == 2)){
+			return false;
+		}
+		var sqlold = "UPDATE users SET AccScore = AccScore + '" + AccScore + "', AccMoney = AccMoney + '" + AccMoney + "', GameProgress = '" + GameProgress + "', BonusData = '" + BonusData + "'  WHERE DeviceID='" + DeviceID + "'"
+		var sql = "UPDATE users SET";
+		
+		if(AccScore != 0){		
+			var acccore = " AccScore = AccScore + '" + AccScore + "'";
+			sql += acccore;
+		}
+		if(AccMoney != 0){
+			if(bonusdata || gameprocess || acccore){sql += ",";}
+			var accmoney = " AccMoney = AccMoney + '" + AccMoney + "'";
+			sql += accmoney;
+		}
+		if(Object.keys(GameProgress).length > 2){
+			if( bonusdata || accmoney || acccore){sql += ",";}
+			var gameprocess = " GameProgress = '" + GameProgress + "'";
+			sql += gameprocess;
+		}
+		if(Object.keys(BonusData).length > 2){
+			if(gameprocess || accmoney || acccore){sql += ",";}
+			var bonusdata = " BonusData = '" + BonusData + "'";
+			sql += bonusdata;
+		}	
+		
         client.getConnection(function (err, connection) {
             if (!err) {
                 console.log("Database is connected ");
@@ -177,8 +203,8 @@ function UpdateAccInfoUser(request, response, client) {
                 if (result.length == 0) {
                     send.SendResult('No user in database', 'UpdateAccInfo', '', response);
                     return false;
-                }
-                connection.query("UPDATE users SET AccScore = AccScore + '" + AccScore + "', AccMoney = AccMoney + '" + AccMoney + "', GameProgress = '" + GameProgress + "', BonusData = '" + BonusData + "'  WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
+                }								
+                connection.query(sql +  " WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
                     connection.release();
                     return send.SendResult('Update Acc Successful!', 'UpdateAccInfo', '', response);
                 });
@@ -201,7 +227,7 @@ function UpdateBonusInfoUser(request, response, client) {
             return false;
         }
         var DeviceID = request.body.DeviceID.toString();
-        var BonusData = JSON.stringify(request.body.BonusData);
+        var BonusData = request.body.BonusData;
 
         client.getConnection(function (err, connection) {
             if (!err) {
