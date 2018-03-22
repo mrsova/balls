@@ -335,7 +335,7 @@ function GetRating(request, response, client){
 						'RatingTable':users
 					}				
 				
-                    return send.SendResult('Info Rating', 'RatingTableData', Users, response);					
+                    return send.SendResult('Info Rating', 'RatingTable', Users, response);					
 				
                 });				
 
