@@ -187,6 +187,7 @@ $ node index.js - Запуск сервера
 # http://185.228.232.205:3851/rating?deviceid=8e5293557ed58237e945357f3ba8c061b6e41def метод GET
 ~~~
 # При успехе возвращается JSON
+~~~
 {
 	"Result": "Info Rating",
 	"QueryType": "RatingTableData",
