@@ -314,39 +314,31 @@ function GetRating(request, response, client){
 				connection.query('SELECT (@n := @n + 1) AS POSITION, id, AccScore, PlayerName FROM users ORDER BY AccScore DESC  LIMIT 10', function (errr, res, fields) {
                     connection.release();
 					var users = []
-					
-					for(key in res){
-						users.push(
-						JSON.stringify({
-							'ID':res[key].id,
-							'Position':res[key].POSITION,
-							'Name':res[key].PlayerName,
-							'Score':res[key].AccScore
-						}));
-						console.log(res[key].id);
-					}
-		
-					var Users = {
-						'user':{
+					users.push(
+						{
 							'ID':result[0].id,
 							'Position':result[0].POSITION,
 							'Name':result[0].PlayerName,
 							'Score':result[0].AccScore
-						},
+						});
+					for(key in res){						
+						users.push(
+						{
+							'ID':res[key].id,
+							'Position':res[key].POSITION,
+							'Name':res[key].PlayerName,
+							'Score':res[key].AccScore
+						});
+					}
+		
+					var Users = {					
 						'users':users
 					}				
 				
                     return send.SendResult('Info Rating', 'RatingTableData', Users, response);					
 				
-                });
-				
-				
-				
-				
-			
-				
-								
-                //return send.SendResult('Info Rating', 'RatingTableData', '', response);
+                });				
+
             });
 			 
 		 });

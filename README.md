@@ -192,17 +192,37 @@ $ node index.js - Запуск сервера
 	"Result": "Info Rating",
 	"QueryType": "RatingTableData",
 	"QueryObject": {
-	"user": {
-	"ID": 2,
-	"Position": 1,
-	"Name": "EvilDevil",
-	"Score": 230130000
-},
-	"users": [
-		  "{"ID":2,"Position":1,"Name":"EvilDevil","Score":230130000}",
-		  "{"ID":4,"Position":2,"Name":"Test","Score":4634000}",
-		  "{"ID":3,"Position":3,"Name":"Hate","Score":65360}",
-		  "{"ID":5,"Position":4,"Name":"serov","Score":22760}"
+		"users": [
+			{
+				"ID": 2,
+				"Position": 1,
+				"Name": "EvilDevil",
+				"Score": 230130000
+			},
+		  {
+			"ID": 2,
+			"Position": 1,
+			"Name": "EvilDevil",
+			"Score": 230130000
+		  },
+		  {
+			"ID": 4,
+			"Position": 2,
+			"Name": "Test",
+			"Score": 4634000
+			},
+		  {
+			"ID": 3,
+			"Position": 3,
+			"Name": "Hate",
+			"Score": 65360
+		  },
+		  {
+			"ID": 5,
+			"Position": 4,
+			"Name": "serov",
+			"Score": 22760
+		  }
 		],
 	}
 }
