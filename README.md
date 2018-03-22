@@ -180,3 +180,29 @@ $ node index.js - Запуск сервера
     "QueryObject": ""
 }
 ~~~
+
+### Получение топ 10 пользователей
+~~~
+Маршрут на оПолучение топ 10 пользователей
+# http://185.228.232.205:3851/rating?deviceid=8e5293557ed58237e945357f3ba8c061b6e41def метод GET
+~~~
+# При успехе возвращается JSON
+{
+	"Result": "Info Rating",
+	"QueryType": "RatingTableData",
+	"QueryObject": {
+	"user": {
+	"ID": 2,
+	"Position": 1,
+	"Name": "EvilDevil",
+	"Score": 230130000
+},
+	"users": [
+		  "{"ID":2,"Position":1,"Name":"EvilDevil","Score":230130000}",
+		  "{"ID":4,"Position":2,"Name":"Test","Score":4634000}",
+		  "{"ID":3,"Position":3,"Name":"Hate","Score":65360}",
+		  "{"ID":5,"Position":4,"Name":"serov","Score":22760}"
+		],
+	}
+}
+~~~

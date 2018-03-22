@@ -69,3 +69,10 @@ app.post('/updatebonus', urlencodedParser, function(request, response){
 app.post('/updatemoney', urlencodedParser,function(request, response){
     user.UpdateMoneyInfoUser(request,response,client);
 });
+
+/**
+ * Обработка пост запроса updatemoney
+ */
+app.get('/rating', urlencodedParser,function(request, response){
+    user.GetRating(request,response,client);
+});
