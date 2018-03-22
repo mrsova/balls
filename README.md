@@ -192,13 +192,13 @@ $ node index.js - Запуск сервера
 	"Result": "Info Rating",
 	"QueryType": "RatingTableData",
 	"QueryObject": {
-		"users": [
-			{
-				"ID": 2,
-				"Position": 1,
-				"Name": "EvilDevil",
-				"Score": 230130000
-			},
+		"RatingTableData": [
+		  {
+			"ID": 2,
+			"Position": 1,
+			"Name": "EvilDevil",
+			"Score": 230130000
+		  },
 		  {
 			"ID": 2,
 			"Position": 1,
