@@ -329,13 +329,9 @@ function GetRating(request, response, client){
 							'Name':res[key].PlayerName,
 							'Score':res[key].AccScore
 						});
-					}
-		
-					var Users = {					
-						'RatingTable':users
-					}				
+					}					
 				
-                    return send.SendResult('Info Rating', 'RatingTable', Users, response);					
+                    return send.SendResult('Info Rating', 'RatingTable', users, response);					
 				
                 });				
 

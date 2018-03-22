@@ -191,8 +191,7 @@ $ node index.js - Запуск сервера
 {
 	"Result": "Info Rating",
 	"QueryType": "RatingTableData",
-	"QueryObject": {
-		"RatingTable": [
+	"QueryObject": [
 		  {
 			"ID": 2,
 			"Position": 1,
@@ -223,7 +222,6 @@ $ node index.js - Запуск сервера
 			"Name": "serov",
 			"Score": 22760
 		  }
-		],
-	}
+	],	
 }
 ~~~
