@@ -28,17 +28,17 @@ function formatDate(date) {
  * @returns {boolean}
  */
 function loginUser(request, response, client) {
-    if (request.method == 'POST') {		
+    if (request.method == 'POST') {
         if (!request.body.DeviceID || !request) {
             send.SendResult('[ERROR]: Empty request', 'login', '', response);
             return false;
         }
-		
+
         var DeviceID = request.body.DeviceID.toString();
         var date = new Date();
         var LastLoginDate = formatDate(date);
-		
-			
+
+
         if (DeviceID == "") {
             send.SendResult('[ERROR]: Empty DeviceID parameter!', 'Login', '', response);
             return false;
@@ -50,7 +50,7 @@ function loginUser(request, response, client) {
                 } else {
                     console.log("Error connecting database ");
                     return false;
-                }				
+                }
                 connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
                     if (result.length == 0) {
                         send.SendResult('Enter player name', 'CreateAccount', '', response);
@@ -165,14 +165,14 @@ function UpdateAccInfoUser(request, response, client) {
         var AccMoney = request.body.AccMoney.toString();
         var GameProgress = request.body.GameProgress;
         var BonusData = request.body.BonusData;
-				
+
 		if((AccScore == 0) && (AccMoney == 0) && (Object.keys(GameProgress).length == 2) && (Object.keys(BonusData).length == 2)){
 			return false;
 		}
 		var sqlold = "UPDATE users SET AccScore = AccScore + '" + AccScore + "', AccMoney = AccMoney + '" + AccMoney + "', GameProgress = '" + GameProgress + "', BonusData = '" + BonusData + "'  WHERE DeviceID='" + DeviceID + "'"
 		var sql = "UPDATE users SET";
-		
-		if(AccScore != 0){		
+
+		if(AccScore != 0){
 			var acccore = " AccScore = AccScore + '" + AccScore + "'";
 			sql += acccore;
 		}
@@ -190,8 +190,8 @@ function UpdateAccInfoUser(request, response, client) {
 			if(gameprocess || accmoney || acccore){sql += ",";}
 			var bonusdata = " BonusData = '" + BonusData + "'";
 			sql += bonusdata;
-		}	
-		
+		}
+
         client.getConnection(function (err, connection) {
             if (!err) {
                 console.log("Database is connected ");
@@ -203,7 +203,7 @@ function UpdateAccInfoUser(request, response, client) {
                 if (result.length == 0) {
                     send.SendResult('No user in database', 'UpdateAccInfo', '', response);
                     return false;
-                }								
+                }
                 connection.query(sql +  " WHERE DeviceID='" + DeviceID + "'", function (errr, result, fields) {
                     connection.release();
                     return send.SendResult('Update Acc Successful!', 'UpdateAccInfo', '', response);
@@ -288,58 +288,6 @@ function UpdateMoneyInfoUser(request, response, client) {
     }
 }
 
-/**
-* Получение статистики
-*/
-function GetRating(request, response, client){
-	if (request.method == 'GET') {
-		var deviceid = request.query.deviceid;
-		 client.getConnection(function (err, connection) {
-		    if (!err) {
-                console.log("Database is connected ");
-				} else {
-                console.log("Error connecting database ");
-                return false;
-			}
-			// WHERE DeviceID='+connection.escape(deviceid)+'
-			connection.query('SET @n = 0')
-		    connection.query('SELECT id, AccScore, PlayerName, POSITION FROM (SELECT (@n := @n + 1) AS POSITION, id, DeviceID, PlayerName, AccScore FROM users ORDER BY AccScore DESC) as tt WHERE tt.DeviceID='+connection.escape(deviceid), function (error, result, fields) {
-				if (error) throw error;
-                if (result.length == 0) {
-                    send.SendResult('No user in database', 'RatingTableData', '', response);
-                    return false;
-                }
-				
-				connection.query('SET @n = 0')		
-				connection.query('SELECT (@n := @n + 1) AS POSITION, id, AccScore, PlayerName FROM users ORDER BY AccScore DESC  LIMIT 10', function (errr, res, fields) {
-                    connection.release();
-					var users = []
-					users.push(
-						{
-							'ID':result[0].id,
-							'Position':result[0].POSITION,
-							'Name':result[0].PlayerName,
-							'Score':result[0].AccScore
-						});
-					for(key in res){						
-						users.push(
-						{
-							'ID':res[key].id,
-							'Position':res[key].POSITION,
-							'Name':res[key].PlayerName,
-							'Score':res[key].AccScore
-						});
-					}					
-				
-                    return send.SendResult('Info Rating', 'RatingTable', users, response);					
-				
-                });				
-
-            });
-			 
-		 });
-	}
-}
 
 
 /**
@@ -351,4 +299,4 @@ module.exports.registerUser = registerUser;
 module.exports.UpdateAccInfoUser = UpdateAccInfoUser;
 module.exports.UpdateBonusInfoUser = UpdateBonusInfoUser;
 module.exports.UpdateMoneyInfoUser = UpdateMoneyInfoUser;
-module.exports.GetRating = GetRating;
+

@@ -2,6 +2,8 @@ var express = require('express'),
     expressResponse = require('express-json-response'),
     bodyParser = require('body-parser'),
     user = require('./user'),
+    rating = require('./rating'),
+    shop = require('./shop'),
     mysql = require('mysql'),
     config = require('./config');
 
@@ -71,8 +73,15 @@ app.post('/updatemoney', urlencodedParser,function(request, response){
 });
 
 /**
- * Обработка пост запроса updatemoney
+ * Обработка пост запроса rating
  */
 app.get('/rating', urlencodedParser,function(request, response){
-    user.GetRating(request,response,client);
+    rating.GetRating(request,response,client);
+});
+
+/**
+ * Обработка пост запроса pricelist
+ */
+app.get('/pricelist', urlencodedParser,function(request, response){
+    shop.GetPriceList(request,response,client);
 });
