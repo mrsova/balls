@@ -28,7 +28,7 @@ function formatDate(date) {
  * @returns {boolean}
  */
 function loginUser(request, response, client) {
-    if (request.method == 'POST') {
+    if (request.method == 'POST') {		
         if (!request.body.DeviceID || !request) {
             send.SendResult('[ERROR]: Empty request', 'login', '', response);
             return false;
