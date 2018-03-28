@@ -65,7 +65,7 @@ function Buy(request, response, client) {
             }
             connection.query('SELECT * FROM users WHERE DeviceID="' + DeviceID + '"', function (error, result, fields) {
                 if (result.length == 0) {
-                    send.SendResult('No user in database', 'BuyFail', '', response);
+                    send.SendResult('No user in database', 'BuyFailed', '', response);
                     return false;
                 }
                 BonusData = JSON.parse(result[0].BonusData);
@@ -73,12 +73,12 @@ function Buy(request, response, client) {
 
                 connection.query('SELECT Price FROM price WHERE BonusID="' + ItemID + '"', function (errr, res, field) {
                     if (res.length == 0) {
-                        send.SendResult('No bonus in database', 'BuyFail', '', response);
+                        send.SendResult('No bonus in database', 'BuyFailed', '', response);
                         return false;
                     }
                     price = res[0].Price;
                     if (price > AccMoney) {
-                        return send.SendResult('txtMoneyNotEnough', 'BuyFail', '', response);
+                        return send.SendResult('txtMoneyNotEnough', 'BuyFailed', '', response);
                         return false
                     }
                     AccMoney = AccMoney - (price * Count);
