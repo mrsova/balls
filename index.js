@@ -23,7 +23,7 @@ var port = process.env.PORT || 3851;
 /**
  * Создание application/json Парсера
  */
-//var jsonParser = bodyParser.json();
+var jsonParser = bodyParser.json();
 
 /**
  * Создание application/x-www-form-urlencoded парсера
@@ -40,35 +40,35 @@ server.listen(port, function(){
 /**
  * Обратка пост запроса login
  */
-app.post('/login', urlencodedParser, function(request, response){
+app.post('/login', jsonParser, function(request, response){
     user.loginUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса register
  */
-app.post('/register', urlencodedParser, function(request, response){
+app.post('/register', jsonParser, function(request, response){
     user.registerUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updateacc
  */
-app.post('/updateacc', urlencodedParser, function(request, response){
+app.post('/updateacc', jsonParser, function(request, response){
     user.UpdateAccInfoUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updatebonus
  */
-app.post('/updatebonus', urlencodedParser, function(request, response){
+app.post('/updatebonus', jsonParser, function(request, response){
     user.UpdateBonusInfoUser(request,response,client);
 });
 
 /**
  * Обработка пост запроса updatemoney
  */
-app.post('/updatemoney', urlencodedParser,function(request, response){
+app.post('/updatemoney', jsonParser,function(request, response){
     user.UpdateMoneyInfoUser(request,response,client);
 });
 
@@ -84,4 +84,11 @@ app.get('/rating', urlencodedParser,function(request, response){
  */
 app.get('/pricelist', urlencodedParser,function(request, response){
     shop.GetPriceList(request,response,client);
+});
+
+/**
+ * Обработка пост запроса pricelist
+ */
+app.post('/buyitem', jsonParser,function(request, response){
+    shop.Buy(request,response,client);
 });

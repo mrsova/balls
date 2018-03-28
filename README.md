@@ -249,3 +249,32 @@ $ node index.js - Запуск сервера
     }
 }
 ~~~
+
+
+### Покупка
+~~~
+Маршрут на получение прайс листа по бонусам
+# http://localhost:3851/buyitem  метод POST
+# Передается JSON  обязательные параметры
+{
+  "DeviceID":"e3e629f0c47ed348bfc6da7c0326c68b",
+  "ItemID": "0",
+  "Count": "1"
+}
+~~~
+# При успехе возвращается JSON
+~~~
+{
+    "Result": "Success Buy",
+    "QueryType": "BuyDone",
+    "QueryObject": {
+        "BonusData": {
+            "OneRowSpawn": 7,
+            "Turn": 0,
+            "KillOneBall": 0,
+            "KillBallsType": 0
+        },
+        "CurrentMoney": 95
+    }
+}
+~~~
