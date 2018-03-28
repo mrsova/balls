@@ -77,20 +77,26 @@ function Buy(request, response, client) {
                         return false;
                     }
                     price = res[0].Price;
-                    if (price > AccMoney) {
+                    if ((price > AccMoney) || ((price*Count) > AccMoney)) {
                         return send.SendResult('txtMoneyNotEnough', 'BuyFailed', '', response);
                         return false
                     }
-                    AccMoney = AccMoney - (price * Count);
+                  
                     var i=0;
+					var minus = 0;
                     for (key in BonusData) {
-                        if (i == ItemID) {
+                        if (i == ItemID) {							
                             BonusData[key] = Number(BonusData[key]) + Number(Count);
+							if(BonusData[key] > 99){
+								minus = BonusData[key] - 99;
+								BonusData[key] = 99;
+							}
+						
                         }
                         i++;
                     }
-
-
+					
+					AccMoney = AccMoney - (price * (Count-minus));
                     var result ={
                         "BonusData":BonusData,
                         "CurrentMoney":AccMoney,
