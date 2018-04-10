@@ -67,7 +67,7 @@ function loginUser(request, response, client) {
                             };
                         connection.query('UPDATE users SET LastLoginDate = "' + LastLoginDate + '" WHERE DeviceID="' + DeviceID + '"', function (errr, result, fields) {
                             connection.release();
-                            return send.SendResult('Login Successful!', 'login', QueryObject, response);
+                            return send.SendResult('Login Successful!', 'Login', QueryObject, response);
                         });
                     }
                 });
@@ -140,7 +140,7 @@ function registerUser(request, response, client) {
                         " VALUES('" + PlayerName + "','" + DeviceID + "','" + RegDate + "','" + LastLoginDate + "','" + AccScore + "','" + BonusData + "','" + AccMoney + "','" + GameProgress + "')",
                         function (errr, result, fields) {
                             connection.release();
-                            return send.SendResult('[INFO]: New Device saved!', 'login', AccData, response);
+                            return send.SendResult('[INFO]: New Device saved!', 'Login', AccData, response);
                         });
                 }
             });
@@ -299,4 +299,5 @@ module.exports.registerUser = registerUser;
 module.exports.UpdateAccInfoUser = UpdateAccInfoUser;
 module.exports.UpdateBonusInfoUser = UpdateBonusInfoUser;
 module.exports.UpdateMoneyInfoUser = UpdateMoneyInfoUser;
+
 
