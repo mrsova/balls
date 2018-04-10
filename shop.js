@@ -85,7 +85,11 @@ function Buy(request, response, client) {
                     var i=0;
 					var minus = 0;
                     for (key in BonusData) {
-                        if (i == ItemID) {							
+                        if (i == ItemID) {	
+							if(Number(BonusData[key]) > 99){								
+								return send.SendResult('txtMaxBonus', 'BuyFailed', '', response);
+								return false;
+							}						
                             BonusData[key] = Number(BonusData[key]) + Number(Count);
 							if(BonusData[key] > 99){
 								minus = BonusData[key] - 99;
